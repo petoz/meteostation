@@ -220,7 +220,6 @@ while (1)  // forever loop
         }
 
       }
-     sleep(1);
  }
  // }
  // forever loop
