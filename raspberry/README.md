@@ -1,4 +1,4 @@
-This directory is for raspberry part of meteostation
+# This directory is for raspberry part of meteostation
 
 
 `read.RF24.sensors.cpp` compile command:<br>
