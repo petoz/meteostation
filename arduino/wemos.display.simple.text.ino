@@ -2,8 +2,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const char* ssid     = "optical";
-const char* password = "Passw0rd";
+const char* ssid     = "panoptical";
+const char* password = "password";
 
 #include <Adafruit_SSD1306.h>
 
