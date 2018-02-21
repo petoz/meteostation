@@ -3,8 +3,8 @@
 #include <ESP8266HTTPClient.h>
 #include <stdio.h>
 
-const char* ssid     = "iPhonePetoZ";
-const char* password = "esp8266test";
+const char* ssid     = "espwifi";
+const char* password = "Passw0rd";
 
 #include <Adafruit_SSD1306.h>
 
