@@ -1,7 +1,5 @@
-#include <DHT.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
-#include <stdio.h>
 
 const char* ssid     = "espwifi";
 const char* password = "Passw0rd";
@@ -9,11 +7,8 @@ const char* password = "Passw0rd";
 #include <Adafruit_SSD1306.h>
 
 #define OLED_RESET 0  // GPIO0
-#define DHTPIN D4
-#define DHTTYPE DHT22   // DHT 22  (AM2302)
 
 Adafruit_SSD1306 display(OLED_RESET);
-DHT dht(DHTPIN, DHTTYPE);
 
 /*#if (SSD1306_LCDHEIGHT != 48)
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
@@ -25,8 +20,6 @@ void setup() {
   display.display();
   delay(500);
   display.clearDisplay();
-  dht.begin();
-//  WiFi.mode(WIFI_OFF);
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   int counter = 0;
@@ -42,9 +35,6 @@ void setup() {
     delay(500);
     counter++;
   }
-  display.println("wifi conn. OK");
-  display.display();
-  delay(1000);
 }
 
 void loop() {
@@ -56,40 +46,32 @@ void loop() {
   int httpCode = http.GET();
   String payload = http.getString();
   Serial.println(payload);
-  String temp = payload;
-  temp.substring(1,2);
-  //String stemp = string.charAt(20);
-  Serial.println("temp substr:");
   int from = payload.indexOf("T\":");
   int to = payload.indexOf("H\":");
-  Serial.println(temp.substring(from+3, to-2));
-  Serial.println(from);
-  Serial.println(to);
-  String tout = temp.substring(from+3, to-2);
-  
+  //String temp = payload;
+  String tout = payload.substring(from+3, to-2);
+  Serial.println(tout);
   from = payload.indexOf("H\":");
   to = payload.indexOf("TBAT\":");
-  String hout = temp.substring(from+3, to-2);
+  String hout = payload.substring(from+3, to-2);
+  Serial.println(hout);
+  from = payload.indexOf("TIN\":");
+  to = payload.indexOf("HIN\":");
+  String tin = payload.substring(from+5, to-2);
+  Serial.println(tin);
+  from = payload.indexOf("HIN\":");
+  to = payload.indexOf("UTime\":");
+  String hin = payload.substring(from+5, to-2);
+  Serial.println(hin);
+
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-
-  if (isnan(h) || isnan(t)) {
-    Serial.println("DHT read error DHT!");
-    return;
-  }
-
-  //display.println("***DHT22***");
-  //display.print("T ");
   display.setTextSize(1);
   display.print("T:");
   display.print(tout);
   display.println("*C");
-  //display.println(t);
   /*display.drawPixel(60,2, WHITE);   //draw dot sing of celsius)
   display.drawPixel(61,2, WHITE);
   display.drawPixel(62,2, WHITE);
@@ -99,14 +81,13 @@ void loop() {
   display.print("H:");
   display.print(hout);
   display.println("%");
-  display.setCursor(0,27);
+  display.setCursor(0,22);
   //display.setCursor(0,27);    //for size 2 font
-  display.print("Tin:");
-  //t = sprintf(t,%f);
-  display.print(t,1);
+  display.print("Tin");
+  display.print(tin);
   display.println("*C");
-  display.print("Hin:");
-  display.print(h,1);
+  display.print("Hin");
+  display.print(hin);
   display.println("%");
   /*display.drawPixel(60,28, WHITE);    //drah % gfx symbol
   display.drawPixel(61,28, WHITE);
