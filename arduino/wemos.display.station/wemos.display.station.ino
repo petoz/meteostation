@@ -11,8 +11,8 @@ const char* password = "Passw0rd";
 Adafruit_SSD1306 display(OLED_RESET);
 
 /*#if (SSD1306_LCDHEIGHT != 48)
-#error("Height incorrect, please fix Adafruit_SSD1306.h!");
-#endif*/
+  #error("Height incorrect, please fix Adafruit_SSD1306.h!");
+  #endif*/
 
 void setup() {
   Serial.begin(115200);
@@ -28,7 +28,7 @@ void setup() {
     display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(WHITE);
-    display.setCursor(0,0);
+    display.setCursor(0, 0);
     display.println("wifi conn...");
     display.println(counter);
     display.display();
@@ -48,73 +48,37 @@ void loop() {
   Serial.println(payload);
   int from = payload.indexOf("T\":");
   int to = payload.indexOf("H\":");
-  //String temp = payload;
-  String tout = payload.substring(from+3, to-2);
+  String tout = payload.substring(from + 3, to - 2);
   Serial.println(tout);
   from = payload.indexOf("H\":");
   to = payload.indexOf("TBAT\":");
-  String hout = payload.substring(from+3, to-2);
+  String hout = payload.substring(from + 3, to - 2);
   Serial.println(hout);
   from = payload.indexOf("TIN\":");
   to = payload.indexOf("HIN\":");
-  String tin = payload.substring(from+5, to-2);
+  String tin = payload.substring(from + 5, to - 2);
   Serial.println(tin);
   from = payload.indexOf("HIN\":");
   to = payload.indexOf("UTime\":");
-  String hin = payload.substring(from+5, to-2);
+  String hin = payload.substring(from + 5, to - 2);
   Serial.println(hin);
 
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0,0);
-  display.setTextSize(1);
-  display.print("T:");
-  display.print(tout);
-  display.println("*C");
-  /*display.drawPixel(60,2, WHITE);   //draw dot sing of celsius)
-  display.drawPixel(61,2, WHITE);
-  display.drawPixel(62,2, WHITE);
-  display.drawPixel(61,1, WHITE);
-  display.drawPixel(61,3, WHITE);*/
-  //display.setTextSize(2);
-  display.print("H:");
-  display.print(hout);
-  display.println("%");
-  display.setCursor(0,22);
-  //display.setCursor(0,27);    //for size 2 font
-  display.print("Tin");
-  display.print(tin);
-  display.println("*C");
-  display.print("Hin");
-  display.print(hin);
-  display.println("%");
-  /*display.drawPixel(60,28, WHITE);    //drah % gfx symbol
-  display.drawPixel(61,28, WHITE);
-  display.drawPixel(60,29, WHITE);
-  display.drawPixel(61,29, WHITE);
-  display.drawPixel(63,28, WHITE);
-  display.drawPixel(63,29, WHITE);
-  display.drawPixel(63,30, WHITE);
-  display.drawPixel(63,31, WHITE);
-  display.drawPixel(62,32, WHITE);
-  display.drawPixel(62,33, WHITE);
-  display.drawPixel(62,34, WHITE);
-  display.drawPixel(62,35, WHITE);
-  display.drawPixel(61,36, WHITE);
-  display.drawPixel(61,37, WHITE);
-  display.drawPixel(61,38, WHITE);
-  display.drawPixel(61,39, WHITE);
-  display.drawPixel(60,40, WHITE);
-  display.drawPixel(60,41, WHITE);
-  display.drawPixel(60,42, WHITE);
-  display.drawPixel(60,43, WHITE);
-  display.drawPixel(62,42, WHITE);
-  display.drawPixel(63,42, WHITE);
-  display.drawPixel(62,43, WHITE);
-  display.drawPixel(63,43 , WHITE);*/
-  //display.println("%");
-  display.display();
-  delay(30000);
-  display.clearDisplay();
+  for (int i = 1; i < 30; i++) {
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(WHITE);
+    display.setCursor(0, 0);
+    display.println("TI/TO");
+    display.println(tin.toFloat(), 1);
+    display.println(tout.toFloat(), 1);
+    display.display();
+    delay(2000);
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.println("HI/HO");
+    display.println(hin.toFloat(),1);
+    display.println(hout.toFloat(),1);
+    display.display();
+    delay(2000);
   }
+}
