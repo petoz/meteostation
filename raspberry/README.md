@@ -6,3 +6,4 @@ compile command for read.RF24.sensors.cpp<br>
 
 - TODO
 - chceksum to receiver sensors.cpp
+- dcsd
