@@ -46,7 +46,7 @@ int fileout(void) {
   soubor = fopen(NAZEV, "a+");
   time_t seconds;
   seconds = time(NULL);
-  //fprintf(soubor,"U=%ld",seconds);
+  fprintf(soubor,"U=%ld",seconds);
   fprintf(soubor,"&T=");
   fprintf(soubor,"%.2f", tempf);
 	fprintf(soubor,"&H=");
@@ -62,6 +62,7 @@ int fileout2(void) {
   soubor = fopen(NAZEV2, "a+");
   time_t seconds;
   seconds = time(NULL);
+  fprintf(soubor,"U=%ld",seconds);
   fprintf(soubor,"&T1=");
   fprintf(soubor,"%.2f", tempf);
 	fprintf(soubor,"&H1=");
@@ -78,6 +79,7 @@ int fileout3(void) {
   soubor = fopen(NAZEV3, "a+");
   time_t seconds;
   seconds = time(NULL);
+  fprintf(soubor,"U=%ld",seconds);
   fprintf(soubor,"&T3=");
   fprintf(soubor,"%.2f", tempf);
 	fprintf(soubor,"&H3=");
