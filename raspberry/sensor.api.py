@@ -39,7 +39,6 @@ hum,temp = Adafruit_DHT.read_retry(22, 17)
 print "Teplota:",("%0.2f" %temp)
 print "Vlhkost:",("%0.2f" %hum)
 
-
 # Distributed with a free-will license.
 # Use it any way you want, profit or free, provided it fits in the licenses of its associated works.
 # BMP280
