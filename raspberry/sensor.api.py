@@ -14,24 +14,11 @@ api_pass = api_pass_file.readline()
 api_pass = api_pass.rstrip()
 print api_pass
 
-#infile = '/home/pi/outtemp.txt'
-infile = '/var/log/mem/sensor.RF.Ext1.txt'
-infile = open(infile)
-line1 = infile.readline()
-line1 = line1.rstrip()
-print line1
-
-infile2 = '/var/log/mem/sensor.RF.Ext2.txt'
-infile2 = open(infile2)
-line2 = infile2.readline()
-line2 = line2.rstrip()
-print line2
-
-infile3 = '/var/log/mem/sensor.RF.Ext3.txt'
-infile3 = open(infile3)
-line3 = infile3.readline()
-line3 = line3.rstrip()
-print line3
+outfile = '/var/log/mem/sensor.RF.Int.txt'
+outfile = open(outfile)
+#line1 = infile.readline()
+#line1 = line1.rstrip()
+#print line1
 
 device_file = '/sys/bus/w1/devices/28-0516b36044ff/w1_slave'  #konkretny subor kde je teplota z ds18b20
 
@@ -197,7 +184,7 @@ sensorRFExt3 = api_string + line3 + "&PASS=" + api_pass
 print sensorRFInt
 print sensorRFExt1
 print sensorRFExt2
-#print sensorRFExt3
+print sensorRFExt3
 
 response = urllib2.urlopen(sensorRFInt)
 html = response.read()
@@ -211,6 +198,6 @@ response = urllib2.urlopen(sensorRFExt2)
 html = response.read()
 print html
 
-#response = urllib2.urlopen(sensorRFExt3)
-#html = response.read()
-#print html
+response = urllib2.urlopen(sensorRFExt3)
+html = response.read()
+print html
