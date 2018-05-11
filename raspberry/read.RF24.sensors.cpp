@@ -89,7 +89,6 @@ int fileout3(void) {
   fclose(soubor);
 }
 
-
 int main(int argc, char** argv){
 radio.begin();
 radio.setRetries(15,15);
