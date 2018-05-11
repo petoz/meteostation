@@ -19,7 +19,6 @@ outfile = open(outfile)
 #line1 = infile.readline()
 #line1 = line1.rstrip()
 #print line1
-#
 
 device_file = '/sys/bus/w1/devices/28-0516b36044ff/w1_slave'  #konkretny subor kde je teplota z ds18b20
 
