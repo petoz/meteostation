@@ -184,7 +184,7 @@ sensorRFExt3 = api_string + line3 + "&PASS=" + api_pass
 print sensorRFInt
 print sensorRFExt1
 print sensorRFExt2
-print sensorRFExt3
+#print sensorRFExt3
 
 response = urllib2.urlopen(sensorRFInt)
 html = response.read()
@@ -198,13 +198,6 @@ response = urllib2.urlopen(sensorRFExt2)
 html = response.read()
 print html
 
-<<<<<<< HEAD
-response = urllib2.urlopen(sensorRFExt3)
-html = response.read()
-print html
-=======
 #response = urllib2.urlopen(sensorRFExt3)
 #html = response.read()
 #print html
-#
->>>>>>> 948bb12283edf9c291b713d0337b50be23c1d7c2
