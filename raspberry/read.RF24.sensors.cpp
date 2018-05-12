@@ -40,7 +40,7 @@ unsigned char ADDRESS0[5]  =
 }; // Define a static TX address
 
 int fileout(void) {
-  #define NAZEV "/var/log/mem/sensrf.txt"
+  #define NAZEV "/var/log/mem/sensor.RF.Ext1.txt"
   FILE *soubor;
   remove(NAZEV);
   soubor = fopen(NAZEV, "a+");
@@ -56,7 +56,7 @@ int fileout(void) {
   fclose(soubor);
 }
 int fileout2(void) {
-  #define NAZEV2 "/var/log/mem/sensrf2.txt"
+  #define NAZEV2 "/var/log/mem/sensor.RF.Ext2.txt"
   FILE *soubor;
   remove(NAZEV2);
   soubor = fopen(NAZEV2, "a+");
@@ -73,7 +73,7 @@ int fileout2(void) {
 }
 
 int fileout3(void) {
-  #define NAZEV3 "/var/log/mem/sensrf3.txt"
+  #define NAZEV3 "/var/log/mem/sensor.RF.Ext3.txt"
   FILE *soubor;
   remove(NAZEV3);
   soubor = fopen(NAZEV3, "a+");
@@ -88,7 +88,6 @@ int fileout3(void) {
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
-
 
 int main(int argc, char** argv){
 radio.begin();
