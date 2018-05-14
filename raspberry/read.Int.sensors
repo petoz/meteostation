@@ -186,7 +186,9 @@ outfile.write(sensorRFInt)
 response = urllib2.urlopen(sensorRFInt)
 html = response.read()
 print html
-if html == "Success"
+if html == "Success":
+    html="success"
     print 'remove file'
+    os.remove(outfile)
 print 'end'
 #
