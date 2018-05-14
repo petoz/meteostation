@@ -201,3 +201,7 @@ print html
 #response = urllib2.urlopen(sensorRFExt3)
 #html = response.read()
 #print html
+<<<<<<< HEAD
+=======
+#
+>>>>>>> 127e1b6f984f69955e050981910720acc2d7ee24
