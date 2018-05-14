@@ -18,7 +18,26 @@ outfile = '/var/log/mem/sensor.RF.Int.txt'
 outfile = open(outfile)
 #line1 = infile.readline()
 #line1 = line1.rstrip()
-#print line1
+#print line1o
+
+infile = '/var/log/mem/sensor.RF.Ext1.txt'
+infile = open(infile)
+line1 = infile.readline()
+line1 = line1.rstrip()
+print line1
+
+infile2 = '/var/log/mem/sensor.RF.Ext2.txt'
+infile2 = open(infile2)
+line2 = infile2.readline()
+line2 = line2.rstrip()
+print line2
+
+infile3 = '/var/log/mem/sensor.RF.Ext3.txt'
+infile3 = open(infile3)
+line3 = infile3.readline()
+line3 = line3.rstrip()
+print line3
+
 
 device_file = '/sys/bus/w1/devices/28-0516b36044ff/w1_slave'  #konkretny subor kde je teplota z ds18b20
 
@@ -201,7 +220,3 @@ print html
 #response = urllib2.urlopen(sensorRFExt3)
 #html = response.read()
 #print html
-<<<<<<< HEAD
-=======
-#
->>>>>>> 127e1b6f984f69955e050981910720acc2d7ee24
