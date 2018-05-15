@@ -17,8 +17,8 @@ api_string = "http://coffee.onmypc.net/meteotemplate/api.php?"
 
 infileInt = "/var/log/mem/sensor.Int.txt"
 if os.path.isfile(infileInt):
-    infileInt = open(infileInt)
-    sensorInt = infileInt.readline()
+    sensorInt = open(infileInt)
+    sensorInt = sensorInt.readline()
     sensorInt = sensorInt.rstrip()
     sensorInt = api_string + sensorInt + "&PASS=" + api_pass
     print sensorInt
