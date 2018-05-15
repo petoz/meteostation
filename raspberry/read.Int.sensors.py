@@ -182,13 +182,13 @@ sensorRFInt = api_string + "U=" + cass + "&P=" + str("%.2f" %pressure) + "&W=0.0
 print sensorRFInt
 #print (sensorRFInt,outfile)
 outfile.write(sensorRFInt)
-
-response = urllib2.urlopen(sensorRFInt)
-html = response.read()
-print html
-if html == "Success":
-  html="success"
-  print 'remove file'
-  outfile.close()
-  os.remove("/var/log/mem/sensor.RF.Int.txt")
-print "end"
+outfile.close()
+#response = urllib2.urlopen(sensorRFInt)
+#html = response.read()
+#print html
+#if html == "Success":
+#  html="success"
+#  print 'remove file'
+#  outfile.close()
+#  os.remove("/var/log/mem/sensor.RF.Int.txt")
+#print "end"
