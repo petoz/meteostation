@@ -17,11 +17,20 @@ print api_pass
 infileInt = '/var/log/mem/sensor.Int.txt'
 if os.path.isfile(infileInt):
     infileInt = open(infileInt)
-    print "file exist"
-    #line1 = infile.readline()
-    #line1 = line1.rstrip()
     sensorInt = infileInt.readline()
     sensorInt = sensorInt.rstrip()
+    response = urllib2.urlopen(sensorInt)
+    html = response.read()
+    print html
+    if html == "Success":
+        html="success"
+        print 'remove file'
+        infileInt.close()
+        os.remove(infileInt)
+
+
+    #line1 = infile.readline()
+    #line1 = line1.rstrip()
 
 #print line1o
 
