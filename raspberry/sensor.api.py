@@ -43,7 +43,7 @@ print line3
 
 casi = int(time.time())
 cass = str(casi)
-api_string = "http://coffee.onmypc.net/meteotemplate/api.php?U="
+api_string = "http://coffee.onmypc.net/meteotemplate/api.php?"
 #full = api_string + line1 + "&TIN=" + str("%.2f" %cTemp) + "&P=" + str("%.2f" %pressure) + "&HIN=" + str("%.2f" %hum) + "&PASS=" + api_pass
 #full = api_string + line1 + "&P=" + str("%.2f" %pressure) + "&TIN=" + str("%.2f" %cTemp) + "&HIN=" + str("%.2f" %hum) + "&T1=" + str("%.2f" %temp) + "&PASS=" + api_pass
 #full = api_string + line1 + "&P=" + str("%.2f" %pressure) + "&TIN=" + str("%.2f" %cTemp) + "&HIN=" + str("%.2f" %hum) + "&T1=" + str("%.2f" %temp) + "&T2=" + str("%.2f" %read_temp()) + "&PASS=" + api_pass
