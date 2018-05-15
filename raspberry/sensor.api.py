@@ -14,14 +14,17 @@ api_pass = api_pass_file.readline()
 api_pass = api_pass.rstrip()
 print api_pass
 
-infileInt = '/var/log/mem/sensor.RF.Int.txt'
-infileInt = open(infileInt)
-#line1 = infile.readline()
-#line1 = line1.rstrip()
-sensorRFInt = infileInt.readline()
-sensorRFInt = sensorRFInt.rstrip()
+sensorInt = '/var/log/mem/sensor.Int.txt'
+if os.path.file(sensorInt):
+    infileInt = open(infileInt)
+    print "file exist"
+    #line1 = infile.readline()
+    #line1 = line1.rstrip()
+    sensorInt = infileInt.readline()
+    sensorInt = sensorInt.rstrip()
 
 #print line1o
+
 
 infile = '/var/log/mem/sensor.RF.Ext1.txt'
 infile = open(infile)
@@ -55,12 +58,12 @@ sensorRFExt1 = api_string + line1 + "&PASS=" + api_pass
 sensorRFExt2 = api_string + line2 + "&PASS=" + api_pass
 sensorRFExt3 = api_string + line3 + "&PASS=" + api_pass
 #full = api_string + line1 + line2 + line3 + "&P=" + str("%.2f" %pressure) + "&W=0.0&G=0.0&B=0&R=0.0&RR=0.0&S=0.0" + "&TIN=" + str("%.2f" %tempds) + "&HIN=" + str("%.2f" %hum) + "&PASS=" + api_pass
-print sensorRFInt
+print sensorInt
 print sensorRFExt1
 print sensorRFExt2
 #print sensorRFExt3
 
-response = urllib2.urlopen(sensorRFInt)
+response = urllib2.urlopen(sensorInt)
 html = response.read()
 print html
 
