@@ -25,7 +25,7 @@ if os.path.isfile(infileInt):
         html="success"
         print html
         print 'remove file'
-        os.remove(infileInt)
+        #os.remove(infileInt)
 
 
 infileExt1 = '/var/log/mem/sensor.RF.Ext1.txt'
@@ -42,7 +42,7 @@ if os.path.isfile(infileExt1):
         html="success"
         print html
         print 'remove file'
-        os.remove(infileExt1)
+        #os.remove(infileExt1)
 
 infileExt2 = '/var/log/mem/sensor.RF.Ext2.txt'
 if os.path.isfile(infileExt2):
@@ -58,7 +58,7 @@ if os.path.isfile(infileExt2):
         html="success"
         print html
         print 'remove file'
-        os.remove(infileExt2)
+        #os.remove(infileExt2)
 
 infileExt3 = '/var/log/mem/sensor.RF.Ext3.txt'
 if os.path.isfile(infileExt3):
@@ -74,4 +74,4 @@ if os.path.isfile(infileExt3):
         html="success"
         print html
         print 'remove file'
-        os.remove(infileExt3)
+        #os.remove(infileExt3)
