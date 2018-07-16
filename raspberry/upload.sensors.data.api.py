@@ -92,3 +92,4 @@ if os.path.isfile(infileExt4):
         print html
         print 'remove file'
         os.remove(infileExt4)
+
