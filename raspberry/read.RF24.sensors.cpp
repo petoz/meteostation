@@ -89,6 +89,23 @@ int fileout3(void) {
   fclose(soubor);
 }
 
+int fileout4(void) {
+  #define NAZEV4 "/var/log/mem/sensor.RF.Ext4.txt"
+  FILE *soubor;
+  remove(NAZEV4);
+  soubor = fopen(NAZEV4, "a+");
+  time_t seconds;
+  seconds = time(NULL);
+  fprintf(soubor,"U=%ld",seconds);
+  fprintf(soubor,"&T4=");
+  fprintf(soubor,"%.2f", tempf);
+	fprintf(soubor,"&H4=");
+  fprintf(soubor,"%.2f", humf);
+  fprintf(soubor,"&T4BAT=");
+  fprintf(soubor,"%.2f\n", batf);
+  fclose(soubor);
+}
+
 int main(int argc, char** argv){
 radio.begin();
 radio.setRetries(15,15);
@@ -220,6 +237,37 @@ while (1)  // forever loop
           strsum = "";
         }
 
+        if ( slength == 24 && pipeNum == 4) {
+          bat = strsum;
+          strsum.erase(12,24);
+          temp = strsum;
+          hum = strsum;
+          temp.erase(6,14);
+          hum.erase(0,6);
+          bat.erase(0,15);
+          bat.erase(6,8);
+          tempf = ::atof(temp.c_str());
+          tempf = tempf - 200;
+          humf = ::atof(hum.c_str());
+          humf = humf - 200;
+          batf = ::atof(bat.c_str());
+          batf = batf - 200;
+          time_t seconds;
+          seconds = time(NULL);
+          printf("pipeNum=");printf("%i\n",pipeNum);
+          printf("&T4=");
+          printf("%.2f",tempf);
+          printf("&H4=");
+          printf("%.2f",humf);
+          printf("&T4BAT=");
+          printf("%.2f\n", batf);
+          fileout4();
+          strsum = "";
+        }
+        if (slength != 24 ) {
+          printf("bad string!!!\n");
+          strsum = "";
+        }
       }
  }
  // }
