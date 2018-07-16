@@ -7,6 +7,7 @@ import os
 import urllib2
 import math
 
+time.sleep(40) #prepare data just before update at 00 seconds
 outfile = '/var/log/mem/sensor.Int.txt'
 outfile = open(outfile,'w')
 
