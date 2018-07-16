@@ -75,9 +75,6 @@ if os.path.isfile(infileExt3):
         html="success"
         print html
         print 'remove file'
-<<<<<<< HEAD
-        #os.remove(infileExt3)
-=======
         os.remove(infileExt3)
 
 infileExt4 = '/var/log/mem/sensor.RF.Ext4.txt'
@@ -96,4 +93,3 @@ if os.path.isfile(infileExt4):
         print 'remove file'
         os.remove(infileExt4)
 
->>>>>>> devel_2
