@@ -13,6 +13,7 @@ print api_pass
 api_string = "https://www.usemy.cloud/meteotemplate/api.php?"
 
 infileInt = "/var/log/mem/sensor.Int.txt"
+tmpfileInt = '/var/log/mem/sensor.Int.tmp.txt'
 if os.path.isfile(infileInt):
     sensorInt = open(infileInt)
     sensorInt = sensorInt.readline()
@@ -26,10 +27,10 @@ if os.path.isfile(infileInt):
         html="success"
         print html
         print 'remove file'
-        #os.remove(infileInt)
-
+        os.rename(infileInt,tmpfileInt)
 
 infileExt1 = '/var/log/mem/sensor.RF.Ext1.txt'
+tmpfileExt1 = '/var/log/mem/sensor.RF.Ext1.tmp.txt'
 if os.path.isfile(infileExt1):
     sensorExt1 = open(infileExt1)
     sensorExt1 = sensorExt1.readline()
@@ -43,9 +44,10 @@ if os.path.isfile(infileExt1):
         html="success"
         print html
         print 'remove file'
-        #os.remove(infileExt1)
+        os.rename(infileExt1,tmpfileExt1)
 
 infileExt2 = '/var/log/mem/sensor.RF.Ext2.txt'
+tmpfileExt2 = '/var/log/mem/sensor.RF.Ext2.tmp.txt'
 if os.path.isfile(infileExt2):
     sensorExt2 = open(infileExt2)
     sensorExt2 = sensorExt2.readline()
@@ -59,9 +61,10 @@ if os.path.isfile(infileExt2):
         html="success"
         print html
         print 'remove file'
-        #os.remove(infileExt2)
+        os.rename(infileExt2,tmpfileExt2)
 
 infileExt3 = '/var/log/mem/sensor.RF.Ext3.txt'
+tmpfileExt3 = '/var/log/mem/sensor.RF.Ext3.tmp.txt'
 if os.path.isfile(infileExt3):
     sensorExt3 = open(infileExt3)
     sensorExt3 = sensorExt3.readline()
@@ -75,9 +78,11 @@ if os.path.isfile(infileExt3):
         html="success"
         print html
         print 'remove file'
+        os.rename(infileExt3,tmpfileExt3)
         os.remove(infileExt3)
 
 infileExt4 = '/var/log/mem/sensor.RF.Ext4.txt'
+tmpfileExt4 = '/var/log/mem/sensor.RF.Ext4.tmp.txt'
 if os.path.isfile(infileExt4):
     sensorExt4 = open(infileExt4)
     sensorExt4 = sensorExt4.readline()
@@ -91,5 +96,5 @@ if os.path.isfile(infileExt4):
         html="success"
         print html
         print 'remove file'
-        os.remove(infileExt4)
+        os.rename(infileExt4,tmpfileExt4)
 
