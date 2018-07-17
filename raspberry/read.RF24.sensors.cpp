@@ -65,9 +65,9 @@ int fileout2(void) {
   fprintf(soubor,"U=%ld",seconds);
   fprintf(soubor,"&T1=");
   fprintf(soubor,"%.2f", tempf);
-	fprintf(soubor,"&H1=");
+  fprintf(soubor,"&H1=");
   fprintf(soubor,"%.2f", humf);
-  fprintf(soubor,"&T1BAT=");
+  fprintf(soubor,"&NO2_1=");
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
@@ -82,9 +82,9 @@ int fileout3(void) {
   fprintf(soubor,"U=%ld",seconds);
   fprintf(soubor,"&T3=");
   fprintf(soubor,"%.2f", tempf);
-	fprintf(soubor,"&H3=");
+  fprintf(soubor,"&H3=");
   fprintf(soubor,"%.2f", humf);
-  fprintf(soubor,"&T3BAT=");
+  fprintf(soubor,"&NO2_3=");
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
@@ -99,9 +99,9 @@ int fileout4(void) {
   fprintf(soubor,"U=%ld",seconds);
   fprintf(soubor,"&T4=");
   fprintf(soubor,"%.2f", tempf);
-	fprintf(soubor,"&H4=");
+  fprintf(soubor,"&H4=");
   fprintf(soubor,"%.2f", humf);
-  fprintf(soubor,"&T4BAT=");
+  fprintf(soubor,"&NO2_4=");
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
@@ -196,7 +196,7 @@ while (1)  // forever loop
           printf("%.2f",tempf);
           printf("&H1=");
           printf("%.2f",humf);
-          printf("&T1BAT=");
+          printf("&NO2_1=");
           printf("%.2f\n", batf);
           fileout2();
           strsum = "";
@@ -223,11 +223,11 @@ while (1)  // forever loop
           time_t seconds;
           seconds = time(NULL);
           printf("pipeNum=");printf("%i\n",pipeNum);
-          printf("&T1=");
+          printf("&T3=");
           printf("%.2f",tempf);
-          printf("&H1=");
+          printf("&H3=");
           printf("%.2f",humf);
-          printf("&T1BAT=");
+          printf("&NO2_3=");
           printf("%.2f\n", batf);
           fileout3();
           strsum = "";
@@ -259,7 +259,7 @@ while (1)  // forever loop
           printf("%.2f",tempf);
           printf("&H4=");
           printf("%.2f",humf);
-          printf("&T4BAT=");
+          printf("&NO2_4=");
           printf("%.2f\n", batf);
           fileout4();
           strsum = "";
