@@ -12,7 +12,7 @@ print api_pass
 #api_string = "http://coffee.onmypc.net/meteotemplate/api.php?"
 api_string = "https://www.usemy.cloud/meteotemplate/api.php?"
 
-infileInt = "/var/log/mem/sensor.Int.txt"
+infileInt = '/var/log/mem/sensor.Int.txt'
 tmpfileInt = '/var/log/mem/sensor.Int.tmp.txt'
 if os.path.isfile(infileInt):
     sensorInt = open(infileInt)
@@ -79,7 +79,6 @@ if os.path.isfile(infileExt3):
         print html
         print 'remove file'
         os.rename(infileExt3,tmpfileExt3)
-        os.remove(infileExt3)
 
 infileExt4 = '/var/log/mem/sensor.RF.Ext4.txt'
 tmpfileExt4 = '/var/log/mem/sensor.RF.Ext4.tmp.txt'
