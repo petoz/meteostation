@@ -1,4 +1,6 @@
-//bi  // nRF24L01 vysílač
+//#define SENSOR_DHT22
+
+// nRF24L01 vysílač
 
 // připojení knihoven
 //#include <SPI.h>
@@ -12,9 +14,11 @@ float BatVoltageD; //napatie baterie 0-1023
 float BatVoltageA; //napatie baterie V
 float BatVoltageP; //napatie baterie Percent
 
+
 // nastavení propojovacích pinů nRF24l01
 //#define CE 7
 //#define CS 8
+
 #define CE A0
 #define CS A1
 // inicializace nRF s piny CE a CS
@@ -33,23 +37,19 @@ byte adresaPrijimac[5] = {0x76,0x79,0x73,0x30,0x30};    //raspberry
 //unsigned char adresaVysilac[5]  = {0x76,0x79,0x73,0x30,0x35}; // Define a static TX address "vys05"
 unsigned char ADDRESS0[5]  =
 {
-  0xb1,0x43,0x88,0x99,0x45
+  0xb4,0x43,0x88,0x99,0x45
 }; // Define a static TX address
 //just change b1 to b2 or b3 to send to other pip on resciever
 
 
-//****DHT part
-#include "DHT.h"
-//#define DHTPIN 5     // what digital pin we're connected to
-#define DHTPIN 5     // what digital pin we're connected to
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-DHT dht(DHTPIN, DHTTYPE);
-//****DHT part
+//#define SENSOR_DHT22
+//#define SENSOR_DS18B20
+#define NO_SENSOR
 
 //float t=-39.87;
-float t;
+
 //float h=99.99;
-float h;
+
 String String_sum;
 int msg[1];
 
@@ -79,7 +79,7 @@ void setup() {
   nRF.begin();
   // nastavení výkonu nRF modulu,
   // pro HIGH a MAX je nutný externí 3,3V zdroj
-  nRF.setPALevel(RF24_PA_MAX);        //pre ladenie spotreby docasne !!!, potom max
+  //nRF.setPALevel(RF24_PA_MAX);        //pre ladenie spotreby docasne !!!, potom max
   /*pre MIN 18,6uA v klude;pocas trvaleho vysielania 6.17mA -MIN
    * LOW 6,64mA
    * HIGH 7,99mA
@@ -96,7 +96,10 @@ void setup() {
   // nastavení zapisovacího a čtecího kanálu
   Serial.print("PALevel=");
   Serial.println(nRF.getPALevel());
-  nRF.setPALevel(RF24_PA_MAX);
+  //nRF.setPALevel(RF24_PA_LOW);//s LOW v pivnici OK
+  //nRF.setPALevel(RF24_PA_MIN);//s MIN v pivnici - ide ale nespolahlivo
+  //nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
+  nRF.setPALevel(RF24_PA_MAX);//s  v pivnici - ?
   Serial.print("PALevel=");
   Serial.println(nRF.getPALevel());
   Serial.print("DataRate=");
@@ -117,15 +120,18 @@ void setup() {
   //nRF.openReadingPipe(1, adresaPrijimac);   //raspberry
   nRF.openWritingPipe(ADDRESS0);
   nRF.openReadingPipe(0,ADDRESS0);
+  setupSensor();
+  //float t;
+  //float h;
   
-  //*DHT part
-  dht.begin();
-  //*DHT part
+  
 }
 
-void loop() {
+float t;
+float h;
 
-  //*read batter voltage part
+void loop() {
+  //*read battery voltage part
   BatVoltageD = analogRead(BatInput);
   BatVoltageA = BatVoltageD * (3.3 / 1023.0);
   BatVoltageP = BatVoltageD/1023*100;
@@ -140,15 +146,20 @@ void loop() {
   //*DHT part
   //dht.begin();
   delay(10);
-  t = dht.readTemperature();
+//  readTemp();
+//  readHum();
+//  float t = dht.readTemperature();
+  t = readTemp();
+  
   Serial.print("Teplota:");
   Serial.println(t);
-  h = dht.readHumidity();
+
+  h = readHum();
   Serial.print("Vlhkost:");
   Serial.println(h);
   //*DHT part
 
-  if (isnan(h) || isnan(t)) {
+  if (isnan(readHum()) || isnan(readTemp())) {
     Serial.println("Failed to read from DHT sensor!");
     digitalWrite(ledPin, HIGH);
     delay(50);
@@ -167,7 +178,7 @@ void loop() {
     return;
   }
 
-  String_sum = String(t+200) + String(h+200);
+  //String_sum = String(t+200) + String(h+200);
   String_sum = String_sum + "wWw" + String(BatVoltageP+200) + "bat";
   Serial.print("Posilam:");
   Serial.println(String_sum);
