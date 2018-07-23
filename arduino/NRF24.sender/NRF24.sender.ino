@@ -1,48 +1,24 @@
 // nRF24L01 vysílač
 
-#define SENSOR_DHT22
-//#define SENSOR_DS18B20
-//#define NO_SENSOR
+#define SENSOR_DHT22  //if DHT22 sensor is used
+//#define SENSOR_DS18B20  //if D18b20b sensor is used
+//#define NO_SENSOR   //if no sensor is used, for test only RF24
+//#define BATTERY   //if battery voltage is measured
 
-// připojení knihoven
-//#include <SPI.h>
 #include "RF24.h"
 #include "LowPower.h"
 
 const int ledPin =  13;      // the number of the LED pin
 
-int BatInput = A2; //cislo analogoveho vstupu
-float BatVoltageD; //napatie baterie 0-1023
-float BatVoltageA; //napatie baterie V
-float BatVoltageP; //napatie baterie Percent
-
-
-// nastavení propojovacích pinů nRF24l01
-//#define CE 7
-//#define CS 8
-
 #define CE A0
 #define CS A1
-// inicializace nRF s piny CE a CS
 RF24 nRF(CE, CS);
-// nastavení adres pro přijímač a vysílač,
-// musí být nastaveny stejně v obou programech!
-//byte adresaPrijimac[] = "prijimac00";
 byte adresaPrijimac[5] = {0x76,0x79,0x73,0x30,0x30};    //raspberry
-//byte adresaVysilac[] = "vysilac00";
-//byte adresaVysilac[] = "vys02";
-//byte adresaVysilac[] = "vys02";
-//unsigned char adresaVysilac[5]  = {0x76,0x79,0x73,0x30,0x31}; // Define a static TX address "vys01" - arduino1
-//unsigned char adresaVysilac[5]  = {0x76,0x79,0x73,0x30,0x32}; // Define a static TX address "vys02"
-//unsigned char adresaVysilac[5]  = {0x76,0x79,0x73,0x30,0x33}; // Define a static TX address "vys03"
-//unsigned char adresaVysilac[5]  = {0x76,0x79,0x73,0x30,0x34}; // Define a static TX address "vys04"
-//unsigned char adresaVysilac[5]  = {0x76,0x79,0x73,0x30,0x35}; // Define a static TX address "vys05"
 unsigned char ADDRESS0[5]  =
 {
   0xb4,0x43,0x88,0x99,0x45
 }; // Define a static TX address
-//just change b1 to b2 or b3 to send to other pip on resciever
-
+//just change b1 to b2 or b3 to send to other pip on receiver
 
 String String_sum;
 int msg[1];
@@ -121,18 +97,6 @@ float t;
 float h;
 
 void loop() {
-  //*read battery voltage part
-  BatVoltageD = analogRead(BatInput);
-  BatVoltageA = BatVoltageD * (3.3 / 1023.0);
-  BatVoltageP = BatVoltageD/1023*100;
-  Serial.print("Napatie dig=");
-  Serial.println(BatVoltageD);
-  Serial.print("Napatie V=");
-  Serial.print(BatVoltageA);
-  Serial.print("Napatie V%=");
-  Serial.println(BatVoltageP);
-  //*read batter voltage part
-
   delay(10);
   t = readTemp();
   Serial.print("Teplota:");
@@ -144,7 +108,14 @@ void loop() {
 if (sensorOK()) {
 }
 
-
+  #ifdef BATTERY
+  float BatVoltageP=BatVoltagePercent();
+  #endif
+  
+  #ifndef BATTERY
+  float BatVoltageP=0.0;
+  #endif
+  
   String_sum = String(t+200) + String(h+200);
   String_sum = String_sum + "wWw" + String(BatVoltageP+200) + "bat";
   Serial.print("Posilam:");
@@ -163,23 +134,11 @@ if (sensorOK()) {
   nRF.write(msg,1);
   nRF.powerDown();
 
-/*  Serial.print("Posilam vlhkost ");
-  Serial.print(h);
-  Serial.println("%\t");
-  if (nRF.write(&h, sizeof(h) )) {
-    //Serial.println("Sent hum. OK");
-  }
-    else {
-      Serial.print("Sent hum. error");
-      delay(2500);
-      return;
-    }*/
-    
-
 //  delay(30);    //kvoli dokonceniu serial.print pred power down
   digitalWrite(ledPin,LOW);   //turn off led after sending data
   LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); //z 22mA na 6.39mA
   delay(10);    //skuska kvoli cyklickemu resetu
   //spotreba dole z 21.2mA na 11.8mA.
 }
+
 
