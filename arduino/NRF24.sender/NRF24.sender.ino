@@ -3,7 +3,7 @@
 #define SENSOR_DHT22  //if DHT22 sensor is used
 //#define SENSOR_DS18B20  //if D18b20b sensor is used
 //#define NO_SENSOR   //if no sensor is used, for test only RF24
-//#define BATTERY   //if battery voltage is measured
+#define BATTERY   //if battery voltage is measured
 
 #include "RF24.h"
 #include "LowPower.h"
@@ -58,7 +58,7 @@ void setup() {
    * pre startListening spotreba 13,9mA pre MIN-MAX
   */
   /*celkova spotreba 27,7mA
-   * 
+   *
    */
   // the following statements improve transmission range
   //nRF.setPayloadSize(4); // setting the payload size to the needed value - pre zvacsenie dosahu
@@ -111,11 +111,11 @@ if (sensorOK()) {
   #ifdef BATTERY
   float BatVoltageP=BatVoltagePercent();
   #endif
-  
+
   #ifndef BATTERY
   float BatVoltageP=0.0;
   #endif
-  
+
   String_sum = String(t+200) + String(h+200);
   String_sum = String_sum + "wWw" + String(BatVoltageP+200) + "bat";
   Serial.print("Posilam:");
@@ -127,10 +127,10 @@ if (sensorOK()) {
     int charToSend[1];
     charToSend[0] = String_sum.charAt(i);
     nRF.write(charToSend,1);
-  }  
+  }
 
-//send the 'terminate string' value...  
-  msg[0] = 2; 
+//send the 'terminate string' value...
+  msg[0] = 2;
   nRF.write(msg,1);
   nRF.powerDown();
 
@@ -140,5 +140,3 @@ if (sensorOK()) {
   delay(10);    //skuska kvoli cyklickemu resetu
   //spotreba dole z 21.2mA na 11.8mA.
 }
-
-
