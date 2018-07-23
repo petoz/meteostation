@@ -21,5 +21,28 @@ float readHum() {
   return h;
 }
 
+
+bool sensorOK() {
+if (isnan(readHum()) || isnan(readTemp())) {
+  Serial.println("Failed to read from DHT sensor!");
+  digitalWrite(ledPin, HIGH);
+  delay(50);
+  digitalWrite(ledPin, LOW);
+  delay(100);
+  digitalWrite(ledPin, HIGH);
+  delay(50);
+  digitalWrite(ledPin, LOW);
+  delay(100);
+  digitalWrite(ledPin, HIGH);
+  delay(50);
+  digitalWrite(ledPin, LOW);
+  delay(100);
+  LowPower.powerDown(SLEEP_4S, ADC_OFF, BOD_OFF); //z 22mA na 6.39mA
+  delay(100);
+  //return;
+  }
+}
+
+
 #endif
 #endif

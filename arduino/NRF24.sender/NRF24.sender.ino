@@ -1,6 +1,8 @@
-//#define SENSOR_DHT22
-
 // nRF24L01 vysílač
+
+#define SENSOR_DHT22
+//#define SENSOR_DS18B20
+//#define NO_SENSOR
 
 // připojení knihoven
 //#include <SPI.h>
@@ -41,14 +43,6 @@ unsigned char ADDRESS0[5]  =
 }; // Define a static TX address
 //just change b1 to b2 or b3 to send to other pip on resciever
 
-
-//#define SENSOR_DHT22
-//#define SENSOR_DS18B20
-#define NO_SENSOR
-
-//float t=-39.87;
-
-//float h=99.99;
 
 String String_sum;
 int msg[1];
@@ -121,10 +115,6 @@ void setup() {
   nRF.openWritingPipe(ADDRESS0);
   nRF.openReadingPipe(0,ADDRESS0);
   setupSensor();
-  //float t;
-  //float h;
-  
-  
 }
 
 float t;
@@ -143,42 +133,19 @@ void loop() {
   Serial.println(BatVoltageP);
   //*read batter voltage part
 
-  //*DHT part
-  //dht.begin();
   delay(10);
-//  readTemp();
-//  readHum();
-//  float t = dht.readTemperature();
   t = readTemp();
-  
   Serial.print("Teplota:");
   Serial.println(t);
-
   h = readHum();
   Serial.print("Vlhkost:");
   Serial.println(h);
-  //*DHT part
 
-  if (isnan(readHum()) || isnan(readTemp())) {
-    Serial.println("Failed to read from DHT sensor!");
-    digitalWrite(ledPin, HIGH);
-    delay(50);
-    digitalWrite(ledPin, LOW);
-    delay(100);
-    digitalWrite(ledPin, HIGH);
-    delay(50);
-    digitalWrite(ledPin, LOW);
-    delay(100);
-    digitalWrite(ledPin, HIGH);
-    delay(50);
-    digitalWrite(ledPin, LOW);
-    delay(100);
-    LowPower.powerDown(SLEEP_4S, ADC_OFF, BOD_OFF); //z 22mA na 6.39mA
-    delay(100);
-    return;
-  }
+if (sensorOK()) {
+}
 
-  //String_sum = String(t+200) + String(h+200);
+
+  String_sum = String(t+200) + String(h+200);
   String_sum = String_sum + "wWw" + String(BatVoltageP+200) + "bat";
   Serial.print("Posilam:");
   Serial.println(String_sum);
