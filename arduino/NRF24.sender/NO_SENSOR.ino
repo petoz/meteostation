@@ -7,12 +7,12 @@ void setupSensor() {
 }
 
 float readTemp() {
-  t = 0.0;
+  t = 12.3;
   return t;
 }
 
 float readHum() {
-  h = 0.0;
+  h = 45.6;
   return h;
 }
 

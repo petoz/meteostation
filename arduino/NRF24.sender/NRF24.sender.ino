@@ -1,8 +1,8 @@
 // nRF24L01 vysílač
 
-#define SENSOR_DHT22  //if DHT22 sensor is used
+//#define SENSOR_DHT22  //if DHT22 sensor is used
 //#define SENSOR_DS18B20  //if D18b20b sensor is used
-//#define NO_SENSOR   //if no sensor is used, for test only RF24
+#define NO_SENSOR   //if no sensor is used, for test only RF24
 #define BATTERY   //if battery voltage is measured
 
 #include "RF24.h"
@@ -16,7 +16,7 @@ RF24 nRF(CE, CS);
 byte adresaPrijimac[5] = {0x76,0x79,0x73,0x30,0x30};    //raspberry
 unsigned char ADDRESS0[5]  =
 {
-  0xb4,0x43,0x88,0x99,0x45
+  0xb5,0x43,0x88,0x99,0x45
 }; // Define a static TX address
 //just change b1 to b2 or b3 to send to other pip on receiver
 
@@ -105,8 +105,10 @@ void loop() {
   Serial.print("Vlhkost:");
   Serial.println(h);
 
+#ifdef DHT22
 if (sensorOK()) {
 }
+#endif
 
   #ifdef BATTERY
   float BatVoltageP=BatVoltagePercent();
