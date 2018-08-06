@@ -71,7 +71,6 @@ int fileout2(void) {
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
-
 int fileout3(void) {
   #define NAZEV3 "/var/log/mem/sensor.RF.Ext3.txt"
   FILE *soubor;
@@ -88,7 +87,6 @@ int fileout3(void) {
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
-
 int fileout4(void) {
   #define NAZEV4 "/var/log/mem/sensor.RF.Ext4.txt"
   FILE *soubor;
@@ -102,6 +100,22 @@ int fileout4(void) {
   fprintf(soubor,"&H4=");
   fprintf(soubor,"%.2f", humf);
   fprintf(soubor,"&NO2_4=");
+  fprintf(soubor,"%.2f\n", batf);
+  fclose(soubor);
+}
+int fileout5(void) {
+  #define NAZEV5 "/var/log/mem/sensor.RF.Ext5.txt"
+  FILE *soubor;
+  remove(NAZEV4);
+  soubor = fopen(NAZEV4, "a+");
+  time_t seconds;
+  seconds = time(NULL);
+  fprintf(soubor,"U=%ld",seconds);
+  fprintf(soubor,"&T5=");
+  fprintf(soubor,"%.2f", tempf);
+  fprintf(soubor,"&H5=");
+  fprintf(soubor,"%.2f", humf);
+  fprintf(soubor,"&NO2_5=");
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
@@ -236,7 +250,6 @@ while (1)  // forever loop
           printf("bad string!!!\n");
           strsum = "";
         }
-
         if ( slength == 24 && pipeNum == 4) {
           bat = strsum;
           strsum.erase(12,24);
@@ -268,6 +281,37 @@ while (1)  // forever loop
           printf("bad string!!!\n");
           strsum = "";
         }
+        if ( slength == 24 && pipeNum == 5) {
+          bat = strsum;
+          strsum.erase(12,24);
+          temp = strsum;
+          hum = strsum;
+          temp.erase(6,14);
+          hum.erase(0,6);
+          bat.erase(0,15);
+          bat.erase(6,8);
+          tempf = ::atof(temp.c_str());
+          tempf = tempf - 200;
+          humf = ::atof(hum.c_str());
+          humf = humf - 200;
+          batf = ::atof(bat.c_str());
+          batf = batf - 200;
+          time_t seconds;
+          seconds = time(NULL);
+          printf("pipeNum=");printf("%i\n",pipeNum);
+          printf("&T5=");
+          printf("%.2f",tempf);
+          printf("&H5=");
+          printf("%.2f",humf);
+          printf("&NO2_5=");
+          printf("%.2f\n", batf);
+          fileout5();
+          strsum = "";
+        }
+        if (slength != 24 ) {
+          printf("bad string!!!\n");
+          strsum = "";
+        }
       }
  }
  // }
@@ -275,4 +319,3 @@ while (1)  // forever loop
  }
   return 0;
 }
-
