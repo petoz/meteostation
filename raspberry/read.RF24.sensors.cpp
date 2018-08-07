@@ -115,7 +115,7 @@ int fileout5(void) {
   fprintf(soubor,"%.2f", tempf);
   fprintf(soubor,"&SM1=");
   fprintf(soubor,"%.2f", humf);
-  fprintf(soubor,"&CO2_1=");
+  fprintf(soubor,"&CO_1=");
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
@@ -303,7 +303,7 @@ while (1)  // forever loop
           printf("%.2f",tempf);
           printf("&SM1=");
           printf("%.2f",humf);
-          printf("&CO2_1=");
+          printf("&CO_1=");
           printf("%.2f\n", batf);
           fileout5();
           strsum = "";
