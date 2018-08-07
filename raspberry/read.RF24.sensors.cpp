@@ -106,8 +106,8 @@ int fileout4(void) {
 int fileout5(void) {
   #define NAZEV5 "/var/log/mem/sensor.RF.Ext5.txt"
   FILE *soubor;
-  remove(NAZEV4);
-  soubor = fopen(NAZEV4, "a+");
+  remove(NAZEV5);
+  soubor = fopen(NAZEV5, "a+");
   time_t seconds;
   seconds = time(NULL);
   fprintf(soubor,"U=%ld",seconds);
