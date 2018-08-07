@@ -97,3 +97,19 @@ if os.path.isfile(infileExt4):
         print 'remove file'
         os.rename(infileExt4,tmpfileExt4)
 
+infileExt5 = '/var/log/mem/sensor.RF.Ext5.txt'
+tmpfileExt5 = '/var/log/mem/sensor.RF.Ext5.tmp.txt'
+if os.path.isfile(infileExt5):
+    sensorExt5 = open(infileExt5)
+    sensorExt5 = sensorExt5.readline()
+    sensorExt5 = sensorExt5.rstrip()
+    sensorExt5 = api_string + sensorExt5 + "&PASS=" + api_pass
+    print sensorExt5
+    response = urllib2.urlopen(sensorExt5)
+    html = response.read()
+    print html
+    if html == "Success":
+        html="success"
+        print html
+        print 'remove file'
+        os.rename(infileExt5,tmpfileExt5)
