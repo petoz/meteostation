@@ -111,11 +111,11 @@ int fileout5(void) {
   time_t seconds;
   seconds = time(NULL);
   fprintf(soubor,"U=%ld",seconds);
-  fprintf(soubor,"&T5=");
+  fprintf(soubor,"&LT1=");
   fprintf(soubor,"%.2f", tempf);
-  fprintf(soubor,"&H5=");
+  fprintf(soubor,"&SM1=");
   fprintf(soubor,"%.2f", humf);
-  fprintf(soubor,"&NO2_5=");
+  fprintf(soubor,"&CO2_1=");
   fprintf(soubor,"%.2f\n", batf);
   fclose(soubor);
 }
@@ -299,11 +299,11 @@ while (1)  // forever loop
           time_t seconds;
           seconds = time(NULL);
           printf("pipeNum=");printf("%i\n",pipeNum);
-          printf("&T5=");
+          printf("&LT1=");
           printf("%.2f",tempf);
-          printf("&H5=");
+          printf("&SM1=");
           printf("%.2f",humf);
-          printf("&NO2_5=");
+          printf("&CO2_1=");
           printf("%.2f\n", batf);
           fileout5();
           strsum = "";
