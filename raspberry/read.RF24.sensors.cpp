@@ -253,12 +253,13 @@ while (1)  // forever loop
         }
         if ( slength == 24 && pipeNum == 4) {
           bat = strsum;
+          checksum = strsum;
           strsum.erase(12,24);
           temp = strsum;
           hum = strsum;
           temp.erase(6,14);
           hum.erase(0,6);
-          bat.erase(0,15);
+          bat.erase(0,12);
           bat.erase(6,8);
           tempf = ::atof(temp.c_str());
           tempf = tempf - 200;
@@ -266,16 +267,21 @@ while (1)  // forever loop
           humf = humf - 200;
           batf = ::atof(bat.c_str());
           batf = batf - 200;
+          checksum.erase(0,18);
+          checksumf = ::atof(checksum.c_str());
+          checksumf = checksumf - 400;
+          checksumf = checksumf - tempf;
           time_t seconds;
           seconds = time(NULL);
-          printf("pipeNum=");printf("%i\n",pipeNum);
           printf("&T4=");
           printf("%.2f",tempf);
           printf("&H4=");
           printf("%.2f",humf);
           printf("&NO2_4=");
           printf("%.2f\n", batf);
-          fileout4();
+          if (checksumf == humf ) {
+            fileout4();
+          }
           strsum = "";
         }
         if (slength != 24 ) {
