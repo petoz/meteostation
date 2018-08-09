@@ -69,7 +69,7 @@ void setup() {
   //nRF.setPALevel(RF24_PA_LOW);//s LOW v pivnici OK
   //nRF.setPALevel(RF24_PA_MIN);//s MIN v pivnici - ide ale nespolahlivo
   //nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
-  nRF.setPALevel(RF24_PA_MAX);//s  v pivnici - ?
+  nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
   Serial.print("PALevel=");
   Serial.println(nRF.getPALevel());
   Serial.print("DataRate=");
