@@ -16,11 +16,12 @@ bool radioNumber = 1;
 int msg[1];
 char theChar;
 string strsum = "";
-string temp,hum,bat;
+string temp,hum,bat,checksum;
 int slength;
 float tempf;
 float humf;
 float batf;
+float checksumf;
 
 uint8_t pipeNum = 0;
 
