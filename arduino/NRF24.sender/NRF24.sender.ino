@@ -3,7 +3,7 @@
 //#define SENSOR_DHT22  //if DHT22 sensor is used
 //#define SENSOR_DS18B20  //if D18b20b sensor is used
 #define NO_SENSOR   //if no sensor is used, for test only RF24
-#define BATTERY   //if battery voltage is measured
+//#define BATTERY   //if battery voltage is measured
 
 #include "RF24.h"
 #include "LowPower.h"
@@ -115,11 +115,11 @@ if (sensorOK()) {
   #endif
 
   #ifndef BATTERY
-  float BatVoltageP=0.0;
+  float BatVoltageP=99.9;
   #endif
 
   String_sum = String(t+200) + String(h+200);
-  String_sum = String_sum + "wWw" + String(BatVoltageP+200) + "bat";
+  String_sum = String_sum + String(BatVoltageP+200);
   String_sum = String_sum + String( (t+200) + (h+200) );
   Serial.print("Posilam:");
   Serial.println(String_sum);

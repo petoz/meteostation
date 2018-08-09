@@ -222,11 +222,7 @@ while (1)  // forever loop
         }
         if ( slength == 24 && pipeNum == 3) {
           bat = strsum;
-	 printf("new string pipe 3 is:");
-	  printf("%s\n", strsum.c_str());
           strsum.erase(12,24);
-	 printf("new string pipe 3a is:");
-	  printf("%s\n", strsum.c_str());
           temp = strsum;
           hum = strsum;
           temp.erase(6,14);
@@ -257,11 +253,7 @@ while (1)  // forever loop
         }
         if ( slength == 24 && pipeNum == 4) {
           bat = strsum;
-	 printf("new string pipe 4 is:");
-	  printf("%s\n", strsum.c_str());
           strsum.erase(12,24);
-	 printf("new string pipe 4 is:");
-	  printf("%s\n", strsum.c_str());
           temp = strsum;
           hum = strsum;
           temp.erase(6,14);
@@ -288,41 +280,27 @@ while (1)  // forever loop
         }
         if (slength != 24 ) {
           printf("bad string!!!\n");
-	  printf("on pipe:");
-	  printf("%i\n",pipeNum);
           strsum = "";
         }
         if ( slength == 24 && pipeNum == 5) {
-	  printf("Struing length pipe 5 ok:\n");
-	  printf("String pipe 5 is:");
-	  printf("%s\n", strsum.c_str());
           bat = strsum;
           checksum = strsum;
-	  printf("%s\n", strsum.c_str());
-         strsum.erase(12,24);
-	 printf("new string pipe 5 is:");
-	  printf("%s\n", strsum.c_str());
+          strsum.erase(12,24);
           temp = strsum;
           hum = strsum;
           temp.erase(6,12);
           hum.erase(0,6);
           bat.erase(0,12);
-          //bat.erase(6,15);
           tempf = ::atof(temp.c_str());
           tempf = tempf - 200;
           humf = ::atof(hum.c_str());
           humf = humf - 200;
-        batf = ::atof(bat.c_str());
-         batf = batf - 200;
-	  checksum.erase(0,18);
-	 printf("new checksumipe 5 is:");
-	  printf("%s\n", checksum.c_str());
-	
+          batf = ::atof(bat.c_str());
+          batf = batf - 200;
+	        checksum.erase(0,18);
           checksumf = ::atof(checksum.c_str());
           checksumf = checksumf - 400;
           checksumf = checksumf - tempf;
-	printf("checksumd=\n");
-	printf("%.2f\n",checksumf);
           time_t seconds;
           seconds = time(NULL);
           printf("&LT1=");
@@ -331,21 +309,17 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&CO_1=");
           printf("%.2f\n", batf);
-	  if (checksumf == humf ) {
-            fileout5();
-       }
+	         if (checksumf == humf ) {
+             fileout5();
+           }
           strsum = "";
         }
         if (slength != 24 ) {
           printf("bad string!!!\n");
-	  printf("on pipe 5");
-	  printf("%i\n",pipeNum);
-	  printf("%s\n", strsum.c_str());
           strsum = "";
         }
       }
  }
- // }
  // forever loop
  }
   return 0;
