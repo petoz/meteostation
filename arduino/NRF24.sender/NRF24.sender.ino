@@ -120,6 +120,7 @@ if (sensorOK()) {
 
   String_sum = String(t+200) + String(h+200);
   String_sum = String_sum + "wWw" + String(BatVoltageP+200) + "bat";
+  String_sum = String_sum + String( (t+200) + (h+200) );
   Serial.print("Posilam:");
   Serial.println(String_sum);
   digitalWrite(ledPin,HIGH);    //turn on led while sending data

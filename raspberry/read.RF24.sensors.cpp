@@ -281,21 +281,26 @@ while (1)  // forever loop
           printf("bad string!!!\n");
           strsum = "";
         }
-        if ( slength == 24 && pipeNum == 5) {
+        if ( slength == 29 && pipeNum == 5) {
           bat = strsum;
-          strsum.erase(12,24);
+          checksum = strsum;
+          strsum.erase(12,29);
           temp = strsum;
           hum = strsum;
-          temp.erase(6,14);
+          temp.erase(6,12);
           hum.erase(0,6);
           bat.erase(0,15);
-          bat.erase(6,8);
+          bat.erase(6,14);
           tempf = ::atof(temp.c_str());
           tempf = tempf - 200;
           humf = ::atof(hum.c_str());
           humf = humf - 200;
           batf = ::atof(bat.c_str());
           batf = batf - 200;
+          checksum.erase(0,24);
+          checksumf = ::atof(checksum.c_str());
+          checksumf = checksumf - 200;
+          checksumf = checksumf - tempf;
           time_t seconds;
           seconds = time(NULL);
           printf("pipeNum=");printf("%i\n",pipeNum);
@@ -305,10 +310,12 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&CO_1=");
           printf("%.2f\n", batf);
-          fileout5();
+          if ( checksumf == humf) {
+            fileout5();
+          }
           strsum = "";
         }
-        if (slength != 24 ) {
+        if (slength != 29 ) {
           printf("bad string!!!\n");
           strsum = "";
         }
