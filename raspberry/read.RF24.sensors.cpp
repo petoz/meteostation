@@ -185,10 +185,6 @@ while (1)  // forever loop
           fileout();
           strsum = "";
         }
-        if (slength !=24) {
-          printf("bad string!!!\n");
-          strsum = "";
-        }
         if ( slength == 24 && pipeNum == 2) {
           bat = strsum;
           strsum.erase(12,24);
@@ -214,10 +210,6 @@ while (1)  // forever loop
           printf("&NO2_1=");
           printf("%.2f\n", batf);
           fileout2();
-          strsum = "";
-        }
-        if (slength != 24 ) {
-          printf("bad string!!!\n");
           strsum = "";
         }
         if ( slength == 24 && pipeNum == 3) {
@@ -251,12 +243,8 @@ while (1)  // forever loop
           printf("%.2f\n", batf);
           if (checksumf == humf ) {
             fileout3();
-        }
-          strsum = "";
-        }
-        if (slength != 24 ) {
-          printf("bad string!!!\n");
-          strsum = "";
+            strsum = "";
+            }
         }
         if ( slength == 24 && pipeNum == 4) {
           bat = strsum;
@@ -289,10 +277,6 @@ while (1)  // forever loop
           if (checksumf == humf ) {
             fileout4();
           }
-          strsum = "";
-        }
-        if (slength != 24 ) {
-          printf("bad string!!!\n");
           strsum = "";
         }
         if ( slength == 24 && pipeNum == 5) {
@@ -328,7 +312,8 @@ while (1)  // forever loop
           strsum = "";
         }
         if (slength != 24 ) {
-          printf("bad string!!!\n");
+          printf("bad string on pipe num=\n");
+          printf("%i\n",pipeNum);
           strsum = "";
         }
       }
