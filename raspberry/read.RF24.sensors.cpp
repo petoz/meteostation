@@ -312,7 +312,7 @@ while (1)  // forever loop
           strsum = "";
         }
         if (slength != 24 ) {
-          printf("bad string on pipe num=\n");
+          printf("bad string on pipe num=");
           printf("%i\n",pipeNum);
           strsum = "";
         }
