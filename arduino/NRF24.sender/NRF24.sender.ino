@@ -1,14 +1,15 @@
 // nRF24L01 vysílač
 
-//#define SENSOR_DHT22  //if DHT22 sensor is used
+#define SENSOR_DHT22  //if DHT22 sensor is used
 //#define SENSOR_DS18B20  //if D18b20b sensor is used
-#define NO_SENSOR   //if no sensor is used, for test only RF24
+//#define NO_SENSOR   //if no sensor is used, for test only RF24
 #define BATTERY   //if battery voltage is measured
 
 #include "RF24.h"
 #include "LowPower.h"
 
 const int ledPin =  13;      // the number of the LED pin
+float BatShutdown = 69;
 
 #define CE A0
 #define CS A1
@@ -16,7 +17,7 @@ RF24 nRF(CE, CS);
 byte adresaPrijimac[5] = {0x76,0x79,0x73,0x30,0x30};    //raspberry
 unsigned char ADDRESS0[5]  =
 {
-  0xb5,0x43,0x88,0x99,0x45
+  0xb4,0x43,0x88,0x99,0x45
 }; // Define a static TX address
 //just change b1 to b2 or b3 to send to other pip on receiver
 
@@ -69,7 +70,8 @@ void setup() {
   //nRF.setPALevel(RF24_PA_LOW);//s LOW v pivnici OK
   //nRF.setPALevel(RF24_PA_MIN);//s MIN v pivnici - ide ale nespolahlivo
   //nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
-  nRF.setPALevel(RF24_PA_MAX);//s  v pivnici - ?
+  //nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
+  nRF.setPALevel(RF24_PA_LOW);//
   Serial.print("PALevel=");
   Serial.println(nRF.getPALevel());
   Serial.print("DataRate=");
@@ -112,14 +114,21 @@ if (sensorOK()) {
 
   #ifdef BATTERY
   float BatVoltageP=BatVoltagePercent();
+  if (BatVoltagePercent() < BatShutdown) {
+    Serial.print("Shutdown...\n");
+    for (;;) {
+     LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
+    }
+  }
   #endif
 
   #ifndef BATTERY
-  float BatVoltageP=0.0;
+  float BatVoltageP=99.9;
   #endif
 
   String_sum = String(t+200) + String(h+200);
-  String_sum = String_sum + "wWw" + String(BatVoltageP+200) + "bat";
+  String_sum = String_sum + String(BatVoltageP+200);
+  String_sum = String_sum + String( (t+200) + (h+200) );
   Serial.print("Posilam:");
   Serial.println(String_sum);
   digitalWrite(ledPin,HIGH);    //turn on led while sending data
