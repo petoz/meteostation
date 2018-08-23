@@ -1,4 +1,3 @@
-
 // nRF24L01 vysílač
 
 #define SENSOR_DHT22  //if DHT22 sensor is used
@@ -10,7 +9,7 @@
 #include "LowPower.h"
 
 const int ledPin =  13;      // the number of the LED pin
-float ShutdownVoltage = 69;
+float BatShutdown = 69;
 
 #define CE A0
 #define CS A1
@@ -115,12 +114,11 @@ if (sensorOK()) {
 
   #ifdef BATTERY
   float BatVoltageP=BatVoltagePercent();
-  if ( BatVoltagePercent() < ShutdownVoltage ) {
-  Serial.print("Shutdown ...\n");
-  /*void loop1() {
-    Serial.print("shut....");
-    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
-  }*/
+  if (BatVoltagePercent() < BatShutdown) {
+    Serial.print("Shutdown...\n");
+    for (;;) {
+     LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
+    }
   }
   #endif
 
@@ -152,5 +150,4 @@ if (sensorOK()) {
   LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); //z 22mA na 6.39mA
   delay(10);    //skuska kvoli cyklickemu resetu
   //spotreba dole z 21.2mA na 11.8mA.
-  
 }
