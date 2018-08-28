@@ -69,8 +69,8 @@ void setup() {
   Serial.println(nRF.getPALevel());
   //nRF.setPALevel(RF24_PA_LOW);//s LOW v pivnici OK
   //nRF.setPALevel(RF24_PA_MIN);//s MIN v pivnici - ide ale nespolahlivo
-  //nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
-  //nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
+  nRF.setPALevel(RF24_PA_HIGH);//s  v pivnici - ?
+  //nRF.setPALevel(RF24_PA_MAX);//s  v pivnici - ?
   nRF.setPALevel(RF24_PA_LOW);//
   Serial.print("PALevel=");
   Serial.println(nRF.getPALevel());
@@ -116,6 +116,7 @@ if (sensorOK()) {
   float BatVoltageP=BatVoltagePercent();
   if (BatVoltagePercent() < BatShutdown) {
     Serial.print("Shutdown...\n");
+    delay(100);
     for (;;) {
      LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
     }
