@@ -268,6 +268,7 @@ while (1)  // forever loop
           checksumf = checksumf - tempf;
           time_t seconds;
           seconds = time(NULL);
+          printf("pipeNum=");printf("%i\n",pipeNum);
           printf("&T4=");
           printf("%.2f",tempf);
           printf("&H4=");
@@ -276,8 +277,8 @@ while (1)  // forever loop
           printf("%.2f\n", batf);
           if (checksumf == humf ) {
             fileout4();
+            strsum = "";
           }
-          strsum = "";
         }
         if ( slength == 24 && pipeNum == 5) {
           bat = strsum;
@@ -306,10 +307,10 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&CO_1=");
           printf("%.2f\n", batf);
-	         if (checksumf == humf ) {
+	  if (checksumf == humf ) {
              fileout5();
+             strsum = "";
            }
-          strsum = "";
         }
         if (slength != 24 ) {
           printf("bad string on pipe num=");

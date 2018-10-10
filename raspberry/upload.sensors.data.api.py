@@ -10,6 +10,7 @@ api_pass = api_pass_file.readline()
 api_pass = api_pass.rstrip()
 print api_pass
 #api_string = "http://coffee.onmypc.net/meteotemplate/api.php?"
+#api_string = "http://www.usemy.cloud/meteotemplate/api.php?"
 api_string = "https://www.usemy.cloud/meteotemplate/api.php?"
 
 infileInt = '/var/log/mem/sensor.Int.txt'
