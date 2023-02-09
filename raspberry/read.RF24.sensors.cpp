@@ -12,7 +12,6 @@ using namespace std;
 RF24 radio(25,0);
 bool radioNumber = 1;
 
-/*!!!*/
 int msg[1];
 char theChar;
 string strsum = "";
@@ -159,12 +158,13 @@ while (1)  // forever loop
           //  what():  basic_string::erase: __pos (which is 12) > this->size() (which is 2)"
           // string kratsi sposoboval pad programu
           bat = strsum;
+          checksum = strsum;
           strsum.erase(12,24);
           temp = strsum;
           hum = strsum;
           temp.erase(6,14);
           hum.erase(0,6);
-          bat.erase(0,15);
+          bat.erase(0,12);
           bat.erase(6,8);
 	        tempf = ::atof(temp.c_str());
           tempf = tempf - 200;
@@ -172,6 +172,12 @@ while (1)  // forever loop
           humf = humf - 200;
           batf = ::atof(bat.c_str());
 	        batf = batf - 200;
+          checksum.erase(0,18);
+	  printf("checsum after erase0,18:%s\n",checksum.c_str());
+          checksumf = ::atof(checksum.c_str());
+          checksumf = checksumf - 400;
+          checksumf = checksumf - tempf;
+	  printf("checksumf-400=%0.2f\n",checksumf);
           time_t seconds;
           seconds = time(NULL);
           printf("pipeNum=");
@@ -182,17 +188,30 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&TBAT=");
           printf("%.2f\n", batf);
-          fileout();
-          strsum = "";
+          if (checksumf - humf < 0.001) {
+	    printf("cheskum pipe1 ok, writing...\n");
+            fileout();
+            strsum = "";
+            }
+	  if (checksumf != humf ) {
+	    printf("checksum not ok\n");
+            printf("checksumf=%0.12f\n",checksumf);
+            printf("humf=%0.12f\n",humf);
+            tempf=0;
+            humf=0;
+            checksumf=0;
+            strsum = "";
+            }
         }
         if ( slength == 24 && pipeNum == 2) {
           bat = strsum;
+          checksum = strsum;
           strsum.erase(12,24);
           temp = strsum;
           hum = strsum;
           temp.erase(6,14);
           hum.erase(0,6);
-          bat.erase(0,15);
+          bat.erase(0,12);
           bat.erase(6,8);
 	        tempf = ::atof(temp.c_str());
           tempf = tempf - 200;
@@ -200,6 +219,10 @@ while (1)  // forever loop
           humf = humf - 200;
           batf = ::atof(bat.c_str());
 	        batf = batf - 200;
+          checksum.erase(0,18);
+          checksumf = ::atof(checksum.c_str());
+          checksumf = checksumf - 400;
+          checksumf = checksumf - tempf;
           time_t seconds;
           seconds = time(NULL);
           printf("pipeNum=");printf("%i\n",pipeNum);
@@ -209,8 +232,10 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&NO2_1=");
           printf("%.2f\n", batf);
-          fileout2();
-          strsum = "";
+          if (checksumf - humf < 0.001) {
+            fileout2();
+            strsum = "";
+            }
         }
         if ( slength == 24 && pipeNum == 3) {
           bat = strsum;
@@ -241,7 +266,7 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&NO2_3=");
           printf("%.2f\n", batf);
-          if (checksumf == humf ) {
+          if (checksumf - humf < 0.001) {
             fileout3();
             strsum = "";
             }
@@ -275,11 +300,12 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&NO2_4=");
           printf("%.2f\n", batf);
-          if (checksumf == humf ) {
+          if (checksumf - humf < 0.001) {
             fileout4();
             strsum = "";
+            }
+            strsum = "";
           }
-        }
         if ( slength == 24 && pipeNum == 5) {
           bat = strsum;
           checksum = strsum;
@@ -307,7 +333,7 @@ while (1)  // forever loop
           printf("%.2f",humf);
           printf("&CO_1=");
           printf("%.2f\n", batf);
-	  if (checksumf == humf ) {
+	  if (checksumf - humf < 0.001) {
              fileout5();
              strsum = "";
            }

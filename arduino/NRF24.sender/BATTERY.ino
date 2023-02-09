@@ -5,6 +5,7 @@ int BatInput = A2; //cislo analogoveho vstupu
 float BatVoltageD;
 float BatVoltageA;
 float BatVoltageP;
+//float ShutdownVoltage = 69; //in percent
 
 float BatVoltagePercent() {
   BatVoltageD = analogRead(BatInput);
