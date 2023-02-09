@@ -4,14 +4,16 @@ import os
 import urllib2
 
 #password file for api
-api_pass_file = '/root/api_pass'
+#api_pass_file = '/root/api_pass'
+api_pass_file = '/root/api_pass_dev'
 api_pass_file = open(api_pass_file)
 api_pass = api_pass_file.readline()
 api_pass = api_pass.rstrip()
 print api_pass
 #api_string = "http://coffee.onmypc.net/meteotemplate/api.php?"
 #api_string = "http://www.usemy.cloud/meteotemplate/api.php?"
-api_string = "https://www.usemy.cloud/meteotemplate/api.php?"
+#api_string = "https://www.usemy.cloud/meteotemplate/api.php?"
+api_string = "https://meteo.usemy.cloud/api.php?"
 
 infileInt = '/var/log/mem/sensor.Int.txt'
 tmpfileInt = '/var/log/mem/sensor.Int.tmp.txt'
